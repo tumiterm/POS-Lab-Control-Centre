@@ -9,11 +9,14 @@
 | What are release stages? | A mix of purposes (DB deployments, UI automation, SCCM copy) and **lab machines** — the numbers in stage names (e.g. `Sandbox (456112)`, `TST Latest (020318)`) identify labs. There are many. |
 | Is there a production reference? | `Compatible (030310)` holds what is in production and is normally not changed → use it as the **prod baseline** for before/after comparisons. |
 | How deep should TFS integration go? | Shallow. Don't model the release processes. |
+| Can we run PowerShell scripts on labs? | **No.** Execution policy is enforced; changing it needs Cybersecurity. → Phase 0 uses a manual checklist; the agent must be a compiled, signed service deployed through an approved channel; deliver zero-footprint features first. |
 
 ## Open
 
 1. **Lab OS** — Windows 10/11 (single interactive session) or Windows Server (multi-session)?
-2. **Agent install** — can a small Windows service be installed on one dev lab for the PoC? Any approval needed?
+2. **Agent install** — needs Cybersecurity approval (see [security-brief.md](security-brief.md)). Could the agent be deployed as just another component through the existing TFS release pipeline / SCCM?
+2a. **Remote session query** — does `quser /server:<LAB>` work from a developer PC? If yes, occupancy needs no agent.
+2b. **Code signing** — is the policy `AllSigned`/`RemoteSigned` with an internal signing certificate, or `Restricted`? Is AppLocker/WDAC also in place?
 3. **Hosting** — where will the central app run? Is SQL Server available?
 4. **Stack** — OK with .NET 8 (ASP.NET Core + Blazor) + SQL Server?
 5. **Installed versions** — where is each component's version visible on a lab (Add/Remove Programs, exe file version, config)? *Phase 0 script will help.*

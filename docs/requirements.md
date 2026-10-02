@@ -142,10 +142,10 @@ Priority: **M** = must (MVP), **S** = should (soon after), **C** = could (later)
 
 | Phase | Scope |
 |---|---|
-| **0. Discovery** | Run `discovery/Invoke-LabDiscovery.ps1` on one lab (+ the prod baseline lab). Decide how to read versions, config, MDD health. |
-| **1. MVP** | Agent + API + dashboard: occupancy, heartbeat, installed versions, mixed-build check, services view, lab register. Several labs from day one. |
-| **2. Reservations** | Reserve/extend/expire, conflicts, `.rdp` connect. |
-| **3. TFS + prod compare** | Latest released, behind status, compare to `Compatible (030310)`. |
+| **0. Discovery** | Manual checklist on one lab + `Compatible (030310)` (scripts are blocked by policy). Start the Cybersecurity conversation using [security-brief.md](security-brief.md). |
+| **1. Zero-footprint MVP** | Nothing installed on labs: lab register, **reservations**, `.rdp` connect, TFS "latest released per component" view, and — if `quser /server:` works — remote occupancy detection. |
+| **2. Agent (after approval)** | Signed .NET Windows service deployed via an approved channel: heartbeat, sessions, installed versions, mixed-build check, services view. |
+| **3. Prod compare + drift** | Compare to `Compatible (030310)`; TFS-deployed vs installed. |
 | **4. MDD** | Health statuses + diagnostics. |
 | **5. Readiness + Find me a lab + history/snapshots** | |
 | **6. Actions** | Allow-listed service restarts, maintenance mode, audit UI. |
